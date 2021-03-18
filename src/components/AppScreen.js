@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import FooterTab from './FooterTab'
 
 const AppScreen = (props) => {
+    const {state, methods} = props
+
     const Container = View;
     const Screen = View;
     const Footer = View;
@@ -12,7 +14,9 @@ const AppScreen = (props) => {
 
             </Screen>
             <Footer style={styles.footer}>
-                <FooterTab />
+                <FooterTab 
+                 state={state}
+                 methods={methods}/>
             </Footer>
         </Container>
     )

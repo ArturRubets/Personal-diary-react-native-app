@@ -10,6 +10,10 @@ import * as Font from '../Font'
 import * as Colors from '../Colors'
 
 const FooterTab = (props) => {
+    const { state, methods } = props;
+    const { currentScreen } = state;
+    const {goTo} = methods;
+
     const screens = [
         { screen: 'home', icon: 'home' },
         { screen: 'create', icon: 'pen' },
@@ -22,17 +26,29 @@ const FooterTab = (props) => {
             horizontal={true}
             data={screens}
             keyExtractor={(item, index) => (item.screen + index)}
-            renderItem={({ item, index }) => {
-                <TouchableOpacity style={styles.section}>
-                    <FontAwesome5
-                        name={item.icon}
-                        color={Colors.WHITE}
-                        size={Font.LARGE}
-                    />
-                </TouchableOpacity>
-                
-            }}>
-        </FlatList>
+            renderItem={
+                ({ item, index }) => (
+                    <TouchableOpacity 
+                    onPress={()=>goTo(item.screen)}
+                    style={
+                        (item.screen == currentScreen)
+                            ? [styles.section, { backgroundColor: Colors.WHITE }]
+                            : styles.section
+                    }>
+                        <FontAwesome5
+                            name={item.icon}
+                            color={
+                                (item.screen == currentScreen)
+                                    ? Colors.SUCCESS
+                                    : Colors.WHITE
+                            }
+                            size={Font.LARGE}
+                        />
+                    </TouchableOpacity>
+                )
+            }
+        >
+        </FlatList >
     )
 }
 
@@ -44,9 +60,9 @@ const styles = StyleSheet.create({
 
     },
     section: {
-        width:(Dimensions.get('window').width / 4),
-        justifyContent:'center',
-        alignItems:'center'
+        width: (Dimensions.get('window').width / 4),
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
