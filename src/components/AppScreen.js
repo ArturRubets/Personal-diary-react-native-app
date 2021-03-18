@@ -1,22 +1,57 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useRef} from 'react';
+import { View, 
+StyleSheet,
+Animated 
+} from 'react-native';
 import FooterTab from './FooterTab'
+import Screens from './Screens'
+import LoadingScreen from './LoadingScreen'
 
 const AppScreen = (props) => {
     const {state, methods} = props
+    const {goTo} = methods
+    const fadeAnimation = useRef(new Animated.Value(1)).current;
+
+    const fadeOut = ()=>{
+        return new Promise((resolve) =>{
+            Animated.timing(fadeAnimation, {
+                toValue:0,
+                duration: 500,
+                useNativeDriver: true
+            }).start(()=> resolve())
+        })
+    }
+
+    const fadeIn = ()=>{
+        return new Promise((resolve) =>{
+            Animated.timing(fadeAnimation, {
+                toValue:1,
+                duration: 500,
+                useNativeDriver: true
+            }).start(()=> resolve())
+        })
+    }
 
     const Container = View;
     const Screen = View;
     const Footer = View;
     return (
         <Container style={styles.container}>
-            <Screen style={styles.screen}>
+            <LoadingScreen/>
 
-            </Screen>
+            <Animated.View style={[styles.screen, {opacity: fadeAnimation}]}>
+                <Screens
+                state={state}
+                />
+            </Animated.View>
             <Footer style={styles.footer}>
                 <FooterTab 
                  state={state}
-                 methods={methods}/>
+                 goTo={(screen) => {
+                        fadeOut().then(() => {
+                            goTo(screen, ()=> fadeIn())
+                        })
+                 }}/>
             </Footer>
         </Container>
     )

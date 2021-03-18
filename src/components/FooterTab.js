@@ -10,9 +10,9 @@ import * as Font from '../Font'
 import * as Colors from '../Colors'
 
 const FooterTab = (props) => {
-    const { state, methods } = props;
+    const { state, goTo } = props;
     const { currentScreen } = state;
-    const {goTo} = methods;
+  
 
     const screens = [
         { screen: 'home', icon: 'home' },
