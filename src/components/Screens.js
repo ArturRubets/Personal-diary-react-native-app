@@ -5,11 +5,12 @@ import {
     Text
 } from 'react-native';
 
+import Account from './account/Account'
+
 const Container = View;
 const Home = View;
 const Create = View;
 const Browse = View;
-const Acount = View;
 
 import * as Font from '../Font'
 import * as Colors from '../Colors'
@@ -52,13 +53,7 @@ const Screens = (props) => {
                 <Text style={{fontSize: Font.LARGE, textAlign:"center"}}>Browse</Text>
             </Browse>
 
-             <Acount style={[
-                  styles.screen,
-                  {backgroundColor: Colors.DANGER},
-                 (currentScreen =='account')? show : hide
-                 ]}>
-                <Text style={{fontSize: Font.LARGE, textAlign:"center"}}>Account</Text>
-            </Acount>
+              <Account style={(currentScreen =='account')? show : hide}/>
         </Container>
     )
 }
