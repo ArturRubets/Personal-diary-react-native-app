@@ -53,7 +53,10 @@ const Screens = (props) => {
                 <Text style={{fontSize: Font.LARGE, textAlign:"center"}}>Browse</Text>
             </Browse>
 
-              <Account style={(currentScreen =='account')? show : hide}/>
+              <Account 
+                style={(currentScreen =='account')? show : hide}
+                state={state}  
+              />
         </Container>
     )
 }

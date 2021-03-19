@@ -3,30 +3,42 @@ import {StatusBar} from 'expo-status-bar';
 import {
     StyleSheet,
     View,
-    ScrollView
+    ScrollView,
+    Text
 } from 'react-native';
 
 import * as Colors from '../../Colors'
 import Header from '../Header'
+import AccountDetails from './AccountDetails'
 
 const Account = (props) => {
+    const {state} = props;
     const {style} = props;
+    const [edit, setEdit] = useState(false)
 
     const Container = View;
     const Body = ScrollView; 
+    const AccountForm = View;
 
     return(
         <Container style={[style, styles.container]}>
             <StatusBar />
             <View style={styles.header}>
                 <Header 
-                title={'Account'}
+                title={'ACCOUNT'}
                 icon={'user'}
                 />
             </View>
 
             <Body style={styles.body}>
-
+                {
+                    (edit)
+                    ?
+                    (<AccountForm>
+                        <Text>Account form</Text>
+                    </AccountForm>)
+                    :<AccountDetails state={state}/>
+                }
             </Body>
         </Container>
     )
