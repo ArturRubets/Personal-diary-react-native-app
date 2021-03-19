@@ -21,7 +21,7 @@ const hide ={flex:0, height:0, opacity:0}
 
 const Screens = (props) => {
     const {state} = props;
-    const {currentScreen} = state
+    const {currentScreen, user} = state
 
     return(
         <Container style={styles.container}>
@@ -31,6 +31,9 @@ const Screens = (props) => {
                     (currentScreen =='home')? show : hide
                 ]}>
                 <Text style={{fontSize: Font.LARGE, textAlign:"center"}}>Home</Text>
+                <Text style={{fontSize: Font.LARGE, textAlign:"center"}}>
+                {JSON.stringify(user, null, '\t')}
+                </Text>
             </Home>
 
              <Create style={[

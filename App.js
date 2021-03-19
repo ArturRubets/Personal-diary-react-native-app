@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AppScreen from './src/components/AppScreen'
+import DiaryDatabase from './src/DiaryDatabase'
 
+const db = new DiaryDatabase('my-diary');
 
 export default class App extends Component {
 
@@ -9,12 +11,30 @@ export default class App extends Component {
 
     this.state = {
       currentScreen: 'home',
-      previousScreen: 'home'
+      previousScreen: 'home',
+      user:{}
     }
 
     this.goTo = this.goTo.bind(this);
     this.getMethods = this.getMethods.bind(this); 
+    
   }
+
+  async componentDidMount(){
+    try{
+       
+      await db.initialize();
+      
+      const user = await db.fetchUser(1);
+    console.log("Setting user")
+
+      this.setState({user})
+    }catch(error){
+      console.log(error.message)
+    }
+  }
+
+
 
   goTo(name, callback = () => console.log('Screen changed')) {
     this.setState((state) => {
