@@ -1,3 +1,5 @@
+import { ToastAndroid } from "react-native";
+
 const truncateText = (text, limit) => {
     text = text.trim();
 
@@ -7,6 +9,15 @@ const truncateText = (text, limit) => {
     return text;
 }
 
+const toastMessage = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+        message,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        0, 100 
+    )
+}
 export {
     truncateText,
+    toastMessage
 }

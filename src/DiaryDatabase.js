@@ -72,6 +72,31 @@ class DiaryDatabase extends Database{
             })
         )
     }
+
+    updateUser(user){
+        const {id, firstName, lastName, gender, birthDate, email} = user;
+
+        const sql = `
+            UPDATE user SET first_name=?,
+                last_name=?,
+                gender=?,
+                birth_date=?,
+                email=?
+            WHERE id=?
+        `;
+
+        return(
+            this.query({sql, args:[firstName, lastName, gender, birthDate, email, id]}).then(
+                (resultSet) => {
+                    const {rowsAffected} = resultSet;
+
+                    return rowsAffected
+                }
+            ).catch((error) => {
+                console.log(`db.updateUser sql: ${sql} error: ${JSON.stringify(error, null, '\t')}`)
+            })
+        )
+    }
 }
 
 

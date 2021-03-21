@@ -14,7 +14,7 @@ import AccountDetails from './AccountDetails'
 import AccountForm from './AccountForm'
 
 const Account = (props) => {
-    const { state } = props;
+    const { state, methods } = props;
     const { style } = props;
     const [edit, setEdit] = useState(false)
 
@@ -34,7 +34,7 @@ const Account = (props) => {
             <Body style={styles.body}>
                 {
                     (edit)
-                        ? <AccountForm state={state} setEdit={setEdit} />
+                        ? <AccountForm state={state} methods={methods} setEdit={setEdit} />
                         : <AccountDetails state={state} setEdit={setEdit} />
                 }
             </Body>

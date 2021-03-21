@@ -16,6 +16,7 @@ export default class App extends Component {
     }
 
     this.goTo = this.goTo.bind(this);
+    this.updateUser = this.updateUser.bind(this);
     this.getMethods = this.getMethods.bind(this);
 
   }
@@ -26,8 +27,7 @@ export default class App extends Component {
       await db.initialize();
 
       const user = await db.fetchUser(1);
-      console.log(user)
-      console.log('!!!!!!!!!!!!!!!!')
+
       console.log("Setting user")
 
       this.setState({ user })
@@ -49,13 +49,25 @@ export default class App extends Component {
     }, callback)
   }
 
+  async updateUser(user, callback){
+    try{
+      const rowsAffected = await db.updateUser(user)
+
+      this.setState({user}, () => callback(rowsAffected))
+    }catch(error){
+      console.log(error.message)
+    }
+  }
+
   getMethods() {
     const {
-      goTo
+      goTo,
+      updateUser
     } = this;
 
     return {
-      goTo
+      goTo,
+      updateUser
     };
   }
 
