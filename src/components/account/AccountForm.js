@@ -1,0 +1,103 @@
+import React, { useState } from 'react';
+import {
+    StyleSheet,
+    View,
+    TextInput,
+    Text
+} from 'react-native';
+
+
+import * as Colors from '../../Colors'
+import * as Font from '../../Font'
+
+import Button from '../Button'
+import FormField from '../FormField'
+import RadioButton from '../RadioButton'
+
+
+const AccountForm = (props) => {
+    const { state, setEdit } = props;
+    const { user } = state;
+    const [firstName, setFirstName] = useState(user.firstName)
+    const [lastName, setLastName] = useState(user.lastName)
+    const [gender, setGender] = useState(user.gender)
+    const Form = View;
+
+    return (
+        <Form style={styles.container}>
+            <Text style={styles.heading}>Please enter your details</Text>
+            <FormField
+                title={'First Name'}
+                style={{ fontWeight: 'bold' }}
+                inputComponent={(
+                    <TextInput
+                        value={firstName}
+                        style={styles.textBox}
+                        onChangeText={(value) => { setFirstName(value) }}
+                    />
+                )} />
+
+            <FormField
+                title={'Last Name'}
+                style={{ fontWeight: 'bold' }}
+                inputComponent={(
+                    <TextInput
+                        value={lastName}
+                        style={styles.textBox}
+                        onChangeText={(value) => { setLastName(value) }}
+                    />
+                )} />
+
+            <FormField
+                title={'Gender'}
+                style={{ fontWeight: 'bold' }}
+                inputComponent={(
+                    <View style={{ flexDirection: 'row' }}>
+                        <RadioButton selected={gender == 'Male'} title={'Male'}
+                            onPress={() => setGender('Male',)}
+                            ringProperties={{ shade:Colors.SUCCESS}}
+                        />
+                        <RadioButton selected={gender == 'Female'} title={'Female'}
+                            onPress={() => setGender('Female')}
+                            ringProperties={{ shade:Colors.SUCCESS}}
+                        />
+                    </View>
+                )} />
+
+
+            <Button title={'Cancel'} icon={'pen'}
+                onPress={() => setEdit(false)}
+                style={{
+                    backgroundColor: Colors.DANGER,
+                    color: Colors.FOREGROUND,
+                    borderRadius: 5,
+                    fontWeight: 'bold'
+                }} />
+        </Form>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        borderWidth: 0.25,
+        flexDirection: 'column',
+        backgroundColor: Colors.WHITE,
+        padding: 15,
+        borderRadius: 5
+    },
+    heading: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: Font.LARGE,
+        marginBottom: 15
+    },
+    textBox: {
+        borderWidth: 0.25,
+        borderRadius: 5,
+        fontSize: Font.SMALL,
+        padding: 10
+    }
+})
+
+
+export default AccountForm

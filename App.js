@@ -12,24 +12,26 @@ export default class App extends Component {
     this.state = {
       currentScreen: 'home',
       previousScreen: 'home',
-      user:{}
+      user: {}
     }
 
     this.goTo = this.goTo.bind(this);
-    this.getMethods = this.getMethods.bind(this); 
-    
+    this.getMethods = this.getMethods.bind(this);
+
   }
 
-  async componentDidMount(){
-    try{
-       
-      await db.initialize();
-      
-      const user = await db.fetchUser(1);
-    console.log("Setting user")
+  async componentDidMount() {
+    try {
 
-      this.setState({user})
-    }catch(error){
+      await db.initialize();
+
+      const user = await db.fetchUser(1);
+      console.log(user)
+      console.log('!!!!!!!!!!!!!!!!')
+      console.log("Setting user")
+
+      this.setState({ user })
+    } catch (error) {
       console.log(error.message)
     }
   }
@@ -47,8 +49,8 @@ export default class App extends Component {
     }, callback)
   }
 
-  getMethods(){
-    const{
+  getMethods() {
+    const {
       goTo
     } = this;
 
@@ -59,9 +61,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <AppScreen 
-      state={this.state} 
-      methods={this.getMethods()}/>
+      <AppScreen
+        state={this.state}
+        methods={this.getMethods()} />
     )
 
   }

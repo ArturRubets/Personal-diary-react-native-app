@@ -60,8 +60,8 @@ class DiaryDatabase extends Database{
 
                 return{
                     id,
-                    first_name:user.first_name,
-                    last_name:user.last_name,
+                    firstName:user.first_name,
+                    lastName:user.last_name,
                     gender,
                     birthDate: user.birth_date,
                     email

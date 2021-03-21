@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StatusBar} from 'expo-status-bar';
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet,
     View,
@@ -9,35 +9,33 @@ import {
 
 import * as Colors from '../../Colors'
 import Header from '../Header'
+import Button from '../Button'
 import AccountDetails from './AccountDetails'
+import AccountForm from './AccountForm'
 
 const Account = (props) => {
-    const {state} = props;
-    const {style} = props;
+    const { state } = props;
+    const { style } = props;
     const [edit, setEdit] = useState(false)
 
     const Container = View;
-    const Body = ScrollView; 
-    const AccountForm = View;
+    const Body = ScrollView;
 
-    return(
+    return (
         <Container style={[style, styles.container]}>
             <StatusBar />
             <View style={styles.header}>
-                <Header 
-                title={'ACCOUNT'}
-                icon={'user'}
+                <Header
+                    title={'ACCOUNT'}
+                    icon={'user'}
                 />
             </View>
 
             <Body style={styles.body}>
                 {
                     (edit)
-                    ?
-                    (<AccountForm>
-                        <Text>Account form</Text>
-                    </AccountForm>)
-                    :<AccountDetails state={state}/>
+                        ? <AccountForm state={state} setEdit={setEdit} />
+                        : <AccountDetails state={state} setEdit={setEdit} />
                 }
             </Body>
         </Container>
@@ -45,19 +43,19 @@ const Account = (props) => {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:Colors.DEFAULT,
-        flexDirection:'column'
+    container: {
+        flex: 1,
+        backgroundColor: Colors.DEFAULT,
+        flexDirection: 'column'
     },
-    header:{
-        flex:0.15,
-        backgroundColor:Colors.SUCCESS
+    header: {
+        flex: 0.15,
+        backgroundColor: Colors.SUCCESS
     },
-    body:{
-        flex:0.85,
-        flexDirection:'column',
-        padding:20
+    body: {
+        flex: 0.85,
+        flexDirection: 'column',
+        padding: 20
     },
 })
 
