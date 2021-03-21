@@ -13,7 +13,7 @@ import * as Font from '../../Font'
 import Button from '../Button'
 import FormField from '../FormField'
 import RadioButton from '../RadioButton'
-
+import DatePicker from '../DatePicker'
 
 const AccountForm = (props) => {
     const { state, setEdit } = props;
@@ -21,6 +21,7 @@ const AccountForm = (props) => {
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
     const [gender, setGender] = useState(user.gender)
+    const [birthDate, setBirthDate] = useState(user.birthDate)
     const Form = View;
 
     return (
@@ -55,15 +56,25 @@ const AccountForm = (props) => {
                     <View style={{ flexDirection: 'row' }}>
                         <RadioButton selected={gender == 'Male'} title={'Male'}
                             onPress={() => setGender('Male',)}
-                            ringProperties={{ shade:Colors.SUCCESS}}
+                            ringProperties={{ shade: Colors.SUCCESS }}
                         />
                         <RadioButton selected={gender == 'Female'} title={'Female'}
                             onPress={() => setGender('Female')}
-                            ringProperties={{ shade:Colors.SUCCESS}}
+                            ringProperties={{ shade: Colors.SUCCESS }}
                         />
                     </View>
                 )} />
 
+            <FormField
+                title={'BirthDate'}
+                style={{ fontWeight: 'bold' }}
+                inputComponent={(
+                    <DatePicker 
+                        style={styles.textBox}
+                        value={birthDate}
+                        onChangeDate={(value) => setBirthDate(value)}
+                    />
+                )} />
 
             <Button title={'Cancel'} icon={'pen'}
                 onPress={() => setEdit(false)}
