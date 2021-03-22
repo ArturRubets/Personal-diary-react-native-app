@@ -12,13 +12,14 @@ export default class App extends Component {
     this.state = {
       currentScreen: 'home',
       previousScreen: 'home',
-      user: {}
+      user: {},
+      diaries: []  /*МАССИВ */
     }
 
     this.goTo = this.goTo.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.getMethods = this.getMethods.bind(this);
-
+    this.insertDiary = this.insertDiary.bind(this);
   }
 
   async componentDidMount() {
@@ -49,12 +50,35 @@ export default class App extends Component {
     }, callback)
   }
 
-  async updateUser(user, callback){
-    try{
+  async updateUser(user, callback) {
+    try {
       const rowsAffected = await db.updateUser(user)
 
-      this.setState({user}, () => callback(rowsAffected))
-    }catch(error){
+      this.setState({ user }, () => callback(rowsAffected))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  async insertDiary(diary, callback) {
+    try {
+      const insertId = await db.insertDiary(diary)
+      diary.id = insertId;
+
+      this.setState((state) => {
+        const { diaries } = state;
+
+        diaries.push(diary)
+        diaries.sort((a, b) => {
+          return (Date.parse(b.date) - Date.parse(a.date))
+        })
+        return {
+          diaries
+        }
+      },
+        () => callback(insertId)
+      )
+    } catch (error) {
       console.log(error.message)
     }
   }
@@ -62,12 +86,14 @@ export default class App extends Component {
   getMethods() {
     const {
       goTo,
-      updateUser
+      updateUser,
+      insertDiary
     } = this;
 
     return {
       goTo,
-      updateUser
+      updateUser,
+      insertDiary
     };
   }
 

@@ -4,12 +4,11 @@ import {
     StyleSheet,
     View,
     ScrollView,
-    Text
+    
 } from 'react-native';
 
 import * as Colors from '../../Colors'
 import Header from '../Header'
-import Button from '../Button'
 import AccountDetails from './AccountDetails'
 import AccountForm from './AccountForm'
 
@@ -44,7 +43,6 @@ const Account = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: Colors.DEFAULT,
         flexDirection: 'column'
     },

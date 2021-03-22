@@ -3,10 +3,19 @@ import { ToastAndroid } from "react-native";
 const truncateText = (text, limit) => {
     text = text.trim();
 
-    if(text.length > limit){
+    if (text.length > limit) {
         return text.substring(0, limit - 3) + "..."
     }
     return text;
+}
+const extractStringDate = (date = new Date()) => {
+    date = new Date(date)
+    const [year, month, day] = [
+        date.getFullYear(),
+        ((date.getMonth() + 1) + '').padStart(2, '0'),
+        (date.getDate() + '').padStart(2, '0')
+    ]
+    return [year, month, day].join('-')
 }
 
 const toastMessage = (message) => {
@@ -14,10 +23,11 @@ const toastMessage = (message) => {
         message,
         ToastAndroid.SHORT,
         ToastAndroid.BOTTOM,
-        0, 100 
+        0, 100
     )
 }
 export {
     truncateText,
-    toastMessage
+    toastMessage,
+    extractStringDate
 }

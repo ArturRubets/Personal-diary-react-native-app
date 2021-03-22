@@ -21,7 +21,7 @@ const AccountForm = (props) => {
     const { state, methods, setEdit } = props;
     const { user } = state;
     const { updateUser } = methods;
-    const [id] = useState(user.id);
+    const [id, setId] = useState(user.id);
     const [firstName, setFirstName] = useState(user.firstName)
     const [lastName, setLastName] = useState(user.lastName)
     const [gender, setGender] = useState(user.gender)
@@ -31,14 +31,17 @@ const AccountForm = (props) => {
     const Footer = View;
 
     const update = () => {
+        const user = {
+            id,
+            firstName,
+            lastName,
+            gender,
+            birthDate,
+            email
+        }
         updateUser(
             {
-                id,
-                firstName,
-                lastName,
-                gender,
-                birthDate,
-                email
+                user
             },
             (rowsAffected) => {
                 toastMessage(`Successfully updated ${rowsAffected} user`)
