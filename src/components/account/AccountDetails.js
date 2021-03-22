@@ -17,11 +17,11 @@ const AccountDetails = (props) => {
     const { user } = state;
     const { firstName, lastName, gender, birthDate, email } = user;
     const data = [
-        { label: 'First name:', value: truncateText(firstName || 'Udefined', 16) },
-        { label: 'Last name:', value: truncateText(lastName || 'Udefined', 16) },
-        { label: 'Gender:', value: gender },
-        { label: 'BirthDate:', value: birthDate },
-        { label: 'Email:', value: truncateText(email || 'Udefined', 16) }
+        { label: 'First name:', value: truncateText(firstName || 'Udefined', 16), id:1 },
+        { label: 'Last name:', value: truncateText(lastName || 'Udefined', 16), id:2  },
+        { label: 'Gender:', value: gender , id:3 },
+        { label: 'BirthDate:', value: birthDate , id:4 },
+        { label: 'Email:', value: truncateText(email || 'Udefined', 16), id:5  }
     ]
     const Container = View;
 
@@ -50,6 +50,7 @@ const AccountDetails = (props) => {
                     <DetailField
                         label={item.label}
                         value={item.value}
+                        key={item.id}
                     />
                 ))
             }

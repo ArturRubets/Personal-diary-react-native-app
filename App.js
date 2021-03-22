@@ -15,7 +15,7 @@ export default class App extends Component {
       previousScreen: 'home',
       user: { id: 1 },
       diary: { edit: false },
-      diaries: []  /*МАССИВ */
+      diaries: []
     }
 
     this.goTo = this.goTo.bind(this);
@@ -36,10 +36,9 @@ export default class App extends Component {
       await db.initialize();
 
       const user = await db.fetchUser(1);
+      const diaries = await db.fetchDiaries();
 
-      console.log("Setting user")
-
-      this.setState({ user })
+      this.setState({ user, diaries })
     } catch (error) {
       console.log(error.message)
     }

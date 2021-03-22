@@ -36,8 +36,6 @@ class DiaryDatabase extends Database {
 
         return this.enableForeignKey().then((message) => {
 
-            console.log(message);
-
             return this.query([
                 { sql: createUserTable, args: [] },
                 { sql: insertDefaultUser, args: [] },
@@ -69,6 +67,27 @@ class DiaryDatabase extends Database {
 
             }).catch((error) => {
                 console.log(`db.fetchUser sql: ${sql} error: ${JSON.stringify(error, null, '\t')}`)
+            })
+        )
+    }
+
+    fetchDiaries(limit = 10, order='DESC') {
+        const sql = `
+        SELECT * FROM diary
+        ORDER BY date ${order}
+        LIMIT ${limit}
+        `
+
+        return (
+            this.query(
+                { sql, args: [] }
+            ).then((resultSet) => {
+                const { rows } = resultSet;
+
+                return rows._array;
+
+            }).catch((error) => {
+                console.log(`db.fetchDiaries sql: ${sql} error: ${JSON.stringify(error, null, '\t')}`)
             })
         )
     }

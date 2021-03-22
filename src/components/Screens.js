@@ -8,9 +8,9 @@ import {
 import Account from './account/Account'
 import Create from './create/Create'
 import Diary from './diary/Diary'
+import Home from './home/Home'
 
 const Container = View;
-const Home = View;
 const Browse = View;
 
 import * as Font from '../Font'
@@ -27,14 +27,10 @@ const Screens = (props) => {
 
     return (
         <Container style={styles.container}>
-            <Home style={[
-                (currentScreen == 'home') ? show : hide
-            ]}>
-
-                <Text style={{ fontSize: Font.LARGE, textAlign: "center" }}>
-                    {JSON.stringify(diaries, null, '\t')}
-                </Text>
-            </Home>
+            <Home style={(currentScreen == 'home') ? show : hide}
+                state={state}
+                methods={methods}
+            />
 
             <Create
                 style={[
@@ -73,7 +69,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: 'red'
     },
 })
 
