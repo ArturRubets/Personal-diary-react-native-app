@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
         fontSize: Font.SMALL,
         textAlignVertical: 'top',
         borderRadius: 5,
-        marginVertical: 10
+        marginVertical: 10,
+        height:240
     },
     footer:{
         paddingVertical:10,

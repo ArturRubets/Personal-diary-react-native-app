@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AppScreen from './src/components/AppScreen'
 import DiaryDatabase from './src/DiaryDatabase'
+import { toastMessage } from './src/Utilities';
 
 const db = new DiaryDatabase('my-diary');
 
@@ -12,16 +13,21 @@ export default class App extends Component {
     this.state = {
       currentScreen: 'home',
       previousScreen: 'home',
-      user: {id:1},
-      diary: {},
+      user: { id: 1 },
+      diary: { edit: false },
       diaries: []  /*МАССИВ */
     }
 
     this.goTo = this.goTo.bind(this);
+    this.goBack = this.goBack.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.getMethods = this.getMethods.bind(this);
     this.insertDiary = this.insertDiary.bind(this);
+    this.updateDiary = this.updateDiary.bind(this);
     this.setDiary = this.setDiary.bind(this);
+    this.editDiary = this.editDiary.bind(this);
+    this.deleteDiary = this.deleteDiary.bind(this);
+    
   }
 
   async componentDidMount() {
@@ -52,8 +58,31 @@ export default class App extends Component {
     }, callback)
   }
 
-  setDiary(diary, callback){
-    this.setState({diary}, callback)
+  goBack() {
+    this.setState((state) => {
+      const { previousScreen } = state;
+
+      return {
+        currentScreen: previousScreen,
+        previousScreen: 'home'
+      }
+    })
+  }
+
+  editDiary(bool) {
+    this.setState(state => {
+      const { diary } = state
+      diary.edit = bool;
+
+      return {
+        diary
+      }
+    })
+  }
+
+
+  setDiary(diary, callback) {
+    this.setState({ diary }, callback)
   }
 
   async updateUser(user, callback) {
@@ -89,19 +118,69 @@ export default class App extends Component {
     }
   }
 
+  async updateDiary(diary, callback) {
+    try {
+      const rowsAffected = await db.updateDiary(diary)
+
+      
+
+      this.setState((state) => {
+        const { diaries } = state;
+        const index = diaries.findIndex(item => item.id == diary.id)
+        diaries.splice(index, 1, diary);
+
+        return{
+          diaries
+        }
+      },
+        () => callback(rowsAffected)
+      )
+    } catch (error) {
+      toastMessage(error.message)
+    }
+  }
+
+  async deleteDiary(id, callback) {
+    try {
+      const rowsAffected = await db.deleteDiary(id)
+
+      this.setState((state) => {
+        const { diaries } = state;
+        const index = diaries.findIndex(item => item.id == id)
+        diaries.splice(index, 1);
+
+        return{
+          diaries
+        }
+      },
+        () => callback(rowsAffected)
+      )
+    } catch (error) {
+      toastMessage(error.message)
+    }
+  }
+
   getMethods() {
     const {
       goTo,
       updateUser,
       insertDiary,
-      setDiary
+      setDiary,
+      goBack,
+      editDiary,
+      updateDiary,
+      deleteDiary
     } = this;
 
     return {
       goTo,
       updateUser,
       insertDiary,
-      setDiary
+      setDiary,
+      goBack,
+      editDiary,
+      updateDiary,
+      deleteDiary
     };
   }
 

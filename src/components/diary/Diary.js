@@ -9,10 +9,14 @@ import * as Colors from '../../Colors'
 import * as Font from '../../Font'
 
 import Header from '../Header'
+import DiaryDetails from './DiaryDetails';
+import DiaryForm from './DiaryForm';
 
 const Diary = (props) => {
-    const {style, state} = props
+    const {style, state, methods} = props
     const {diary} = state;
+    const {goBack} = methods;
+    const {edit} = diary;
     const Container = View;
     const Body = View;
 
@@ -21,13 +25,17 @@ const Diary = (props) => {
             <View style={styles.header}>
                 <Header
                     icon={'arrow-left'}
-                    title={'Diary'}
+                    title={'DIARY'}
+                    onPressIcon={()=>goBack()}
+
                 />
             </View>
             <Body style={styles.body}>
-                <Text style={{ textAlign: 'center' }}>
-                    {JSON.stringify(diary)}
-                </Text>
+                {
+                    (edit)
+                    ? <DiaryForm state={state} methods={methods}/>
+                    : <DiaryDetails state={state} methods={methods}/>
+                }
             </Body>
         </Container>
     )

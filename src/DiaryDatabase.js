@@ -123,6 +123,47 @@ class DiaryDatabase extends Database {
             })
         )
     }
+
+    updateDiary(diary) {
+        const { id,text} = diary;
+
+        const sql = `
+            UPDATE diary SET text=?
+            WHERE id=?
+        `;
+
+        return (
+            this.query({ sql, args: [id,text] }).then(
+                (resultSet) => {
+                    const { rowsAffected } = resultSet;
+
+                    return rowsAffected
+                }
+            ).catch((error) => {
+                console.log(`db.updateDiary sql: ${sql} error: ${JSON.stringify(error, null, '\t')}`)
+                throw new Error(`Error: The diary for the id ${id} does not exists`)
+            })
+        )
+    }
+
+    deleteDiary(id) {
+
+        const sql = `
+            DELETE FROM diary WHERE id=?
+        `;
+
+        return (
+            this.query({ sql, args: [id] }).then(
+                (resultSet) => {
+                    const { rowsAffected } = resultSet;
+
+                    return rowsAffected
+                }
+            ).catch((error) => {
+                console.log(`db.deleteDiary sql: ${sql} error: ${JSON.stringify(error, null, '\t')}`)
+            })
+        )
+    }
 }
 
 
