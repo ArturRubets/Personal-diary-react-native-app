@@ -9,13 +9,10 @@ import Account from './account/Account'
 import Create from './create/Create'
 import Diary from './diary/Diary'
 import Home from './home/Home'
+import Browse from './browse/Browse'
+
 
 const Container = View;
-const Browse = View;
-
-import * as Font from '../Font'
-import * as Colors from '../Colors'
-
 
 const show = { flex: 1 }
 const hide = { flex: 0, height: 0, opacity: 0 }
@@ -49,10 +46,10 @@ const Screens = (props) => {
             />
 
             <Browse style={[
-                (currentScreen == 'browse') ? show : hide]
-            }>
-                <Text style={{ fontSize: Font.LARGE, textAlign: "center" }}>Browse</Text>
-            </Browse>
+                (currentScreen == 'browse') ? show : hide]}
+                state={state}
+                methods={methods}    
+            />
 
             <Account
                 style={[
