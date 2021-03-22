@@ -19,7 +19,7 @@ import { extractStringDate, toastMessage } from '../../Utilities'
 const CreateForm = (props) => {
     const { state, methods } = props;
     const { user } = state
-    const { insertDiary } = methods
+    const { insertDiary, goTo, setDiary } = methods
 
     const Form = View;
     const TextAreaContainer = View;
@@ -38,7 +38,10 @@ const CreateForm = (props) => {
             setText('')
             setDate(extractStringDate())
 
-            toastMessage(`Successfully saved diary with id: ${insertId}`)
+            setDiary({id: insertId, date, text, userId}, () => {
+                toastMessage(`Successfully saved diary with id: ${insertId}`)
+                goTo('diary')
+            })
         }
 
         insertDiary(diary, callback)

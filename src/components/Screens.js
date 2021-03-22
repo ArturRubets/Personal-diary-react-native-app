@@ -7,6 +7,7 @@ import {
 
 import Account from './account/Account'
 import Create from './create/Create'
+import Diary from './diary/Diary'
 
 const Container = View;
 const Home = View;
@@ -29,7 +30,7 @@ const Screens = (props) => {
             <Home style={[
                 (currentScreen == 'home') ? show : hide
             ]}>
-            
+
                 <Text style={{ fontSize: Font.LARGE, textAlign: "center" }}>
                     {JSON.stringify(diaries, null, '\t')}
                 </Text>
@@ -38,6 +39,14 @@ const Screens = (props) => {
             <Create
                 style={[
                     (currentScreen == 'create') ? show : hide
+                ]}
+                state={state}
+                methods={methods}
+            />
+
+            <Diary
+                style={[
+                    (currentScreen == 'diary') ? show : hide
                 ]}
                 state={state}
                 methods={methods}
@@ -64,7 +73,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor:'red'
+        backgroundColor: 'red'
     },
 })
 

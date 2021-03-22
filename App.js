@@ -12,7 +12,8 @@ export default class App extends Component {
     this.state = {
       currentScreen: 'home',
       previousScreen: 'home',
-      user: {},
+      user: {id:1},
+      diary: {},
       diaries: []  /*МАССИВ */
     }
 
@@ -20,6 +21,7 @@ export default class App extends Component {
     this.updateUser = this.updateUser.bind(this);
     this.getMethods = this.getMethods.bind(this);
     this.insertDiary = this.insertDiary.bind(this);
+    this.setDiary = this.setDiary.bind(this);
   }
 
   async componentDidMount() {
@@ -48,6 +50,10 @@ export default class App extends Component {
         previousScreen: currentScreen
       }
     }, callback)
+  }
+
+  setDiary(diary, callback){
+    this.setState({diary}, callback)
   }
 
   async updateUser(user, callback) {
@@ -87,13 +93,15 @@ export default class App extends Component {
     const {
       goTo,
       updateUser,
-      insertDiary
+      insertDiary,
+      setDiary
     } = this;
 
     return {
       goTo,
       updateUser,
-      insertDiary
+      insertDiary,
+      setDiary
     };
   }
 
