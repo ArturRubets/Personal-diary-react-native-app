@@ -10,8 +10,6 @@ import {FontAwesome5} from '@expo/vector-icons'
 import * as Colors from '../Colors'
 import * as Font from '../Font'
 
-console.log(Constants.StatusBarHeight)
-
 const Header = (props) =>{
     const {icon, title, onPressIcon} = props;
     const onPress = (typeof onPressIcon == 'function') ? onPressIcon : () => {return;}
