@@ -26,7 +26,7 @@ class DiaryDatabase extends Database {
         const createDiaryTable = `
             CREATE TABLE IF NOT EXISTS diary(
                 id INTEGER PRIMARY KEY,
-                date CHAR(10) UNIQUE NOT NULL,
+                date CHAR(10)  NOT NULL,
                 text TEXT NOT NULL,
                 user_id INTEGER NOT NULL,
 
@@ -94,7 +94,7 @@ class DiaryDatabase extends Database {
 
     updateUser(user) {
         const { id, firstName, lastName, gender, birthDate, email } = user;
-
+        console.log(user)
         const sql = `
             UPDATE user SET first_name=?,
                 last_name=?,

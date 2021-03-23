@@ -24,7 +24,6 @@ const Browse = (props) => {
                 <View style={styles.searchBox}>
                     <TextInput
                         style={styles.textBox}
-                        onChangeText={(value) => { setFirstName(value) }}
                         placeholder={'Search...'}
                     />
 

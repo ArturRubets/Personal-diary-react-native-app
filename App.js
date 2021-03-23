@@ -37,7 +37,7 @@ export default class App extends Component {
 
       const user = await db.fetchUser(1);
       const diaries = await db.fetchDiaries();
-
+    
       this.setState({ user, diaries })
     } catch (error) {
       console.log(error.message)
@@ -49,7 +49,7 @@ export default class App extends Component {
   goTo(name, callback = () => console.log('Screen changed')) {
     this.setState((state) => {
       const { currentScreen } = state;
-
+    
       return {
         currentScreen: name,
         previousScreen: currentScreen
@@ -86,6 +86,7 @@ export default class App extends Component {
 
   async updateUser(user, callback) {
     try {
+      console.log(user)
       const rowsAffected = await db.updateUser(user)
 
       this.setState({ user }, () => callback(rowsAffected))

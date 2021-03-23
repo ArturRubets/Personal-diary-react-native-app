@@ -26,7 +26,7 @@ const Diaries = (props) => {
             <Body style={[styles.body]}>
                 <FlatList
                     data={diaries}
-                    keyExtractor={item => item.date}
+                    keyExtractor={item => item.id.toString()}
                     renderItem={({ item, index }) => {
                         return (
                             <DiaryItem 

@@ -15,7 +15,7 @@ const ProfilePicture = (props)=> {
     return(
         <Container style={styles.container}>
             <Foundation 
-                name={(gender == 'male') ? 'torso' : 'torso-female'} 
+                name={(gender == 'Male') ? 'torso' : 'torso-female'} 
                 size={Font.BASE * 100}
                 color={Colors.WHITE}
             />

@@ -39,10 +39,11 @@ const AccountForm = (props) => {
             birthDate,
             email
         }
+        console.log(user)
         updateUser(
-            {
+            
                 user
-            },
+            ,
             (rowsAffected) => {
                 toastMessage(`Successfully updated ${rowsAffected} user`)
                 setEdit(false)
